@@ -22,7 +22,7 @@ def _compute_jobs_new_values(env):
         exception_details = _get_exception_details(job_row["exc_info"])
         if exception_details:
             job = env["queue.job"].browse(job_row["id"])
-            job.write(exception_details)
+            job.with_context(mail_notrack=True).write(exception_details)
 
 
 def _get_exception_details(exc_info):
